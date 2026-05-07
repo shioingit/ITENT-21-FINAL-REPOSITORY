@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nomi – E-Pet</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #fdf6ee;
+      padding: 30px;
+    }
+
+    #pet {
+      font-size: 80px;
+      margin: 20px 0;
+      transition: transform 0.2s;
+    }
+
+    input {
+      padding: 8px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 200px;
+    }
+
+    button {
+      padding: 8px 16px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #f4845f;
+      color: white;
+      margin-left: 6px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 16px;
+    }
+
+    li {
+      margin: 8px 0;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    li.done {
+      text-decoration: line-through;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🐾 Nomi</h2>
+  <div id="pet">🐱</div>
+
+  <input id="task-input" type="text" placeholder="Add a task…">
+  <button onclick="addTask()">Add</button>
+
+  <ul id="task-list"></ul>
+
+<script>
+  // Add a task to the list
+  function addTask() {
+    const input = document.getElementById("task-input");
+    if (!input.value.trim()) return;
+
+    const li = document.createElement("li");
+    li.textContent = input.value.trim();
+    li.onclick = () => {
+      li.classList.toggle("done");
+      bounce(); // pet reacts when a task is completed
+    };
+
+    document.getElementById("task-list").appendChild(li);
+    input.value = "";
+  }
+
+  // Bounce animation
+  function bounce() {
+    const pet = document.getElementById("pet");
+    pet.style.transform = "scale(1.4)";
+    setTimeout(() => pet.style.transform = "scale(1)", 200);
+  }
+</script>
+
+</body>
+</html>
