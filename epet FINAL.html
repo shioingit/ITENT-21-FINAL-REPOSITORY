@@ -348,6 +348,8 @@
       if (dateStr === todayStr) el.classList.add("today");
       if (tasks.some(t => t.date === dateStr && !t.done)) el.classList.add("has-task");
 
+       // NEW: make day clickable to show report
+      el.onclick = () => showDayReport(dateStr);
       grid.appendChild(el);
     }
   }
@@ -365,6 +367,27 @@
 
   document.getElementById("task-date").value = new Date().toISOString().slice(0, 10);
   renderCalendar();
+
+  // Show report for a clicked day
+function showDayReport(dateStr) {
+  const dayTasks = tasks.filter(t => t.date === dateStr);
+  const reportDiv = document.getElementById("report");
+
+  if (dayTasks.length === 0) {
+    reportDiv.innerHTML = `<h3>Tasks for ${dateStr}</h3><p>No tasks.</p>`;
+  } else {
+    let html = `<h3>Tasks for ${dateStr}</h3><ul>`;
+    dayTasks.forEach(t => {
+      html += `<li>${t.name} ${t.done ? "✅" : "❌"}</li>`;
+    });
+    html += "</ul>";
+    reportDiv.innerHTML = html;
+  }
+
+  // Switch to Report tab automatically
+  showTab("report-tab", document.querySelector('.tab[onclick*="report-tab"]'));
+}
+
 </script>
 
 </body>
