@@ -75,12 +75,13 @@
   <div id="report"></div>
 
 <script>
-  // Add a task to the list
+  // Add a task to the list (prevent duplicates)
   function addTask() {
     const input = document.getElementById("task-input");
-    if (!input.value.trim()) return;
+    const newTask = input.value.trim();
+    if (!newTask) return;
 
-   // Check for duplicates
+    // Check for duplicates (case-insensitive)
     const existingTasks = document.querySelectorAll("#task-list li");
     for (let task of existingTasks) {
       if (task.textContent.toLowerCase() === newTask.toLowerCase()) {
@@ -100,6 +101,13 @@
 
     document.getElementById("task-list").appendChild(li);
     input.value = "";
+  }
+
+  // Bounce animation
+  function bounce() {
+    const pet = document.getElementById("pet");
+    pet.style.transform = "scale(1.4)";
+    setTimeout(() => pet.style.transform = "scale(1)", 200);
   }
 
   // Generate report of completed tasks with date
