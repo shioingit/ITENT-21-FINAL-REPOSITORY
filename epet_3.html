@@ -52,6 +52,12 @@
       text-decoration: line-through;
       color: #aaa;
     }
+
+    #report {
+      margin-top: 20px;
+      text-align: left;
+      display: inline-block;
+    }
   </style>
 </head>
 <body>
@@ -63,6 +69,10 @@
   <button onclick="addTask()">Add</button>
 
   <ul id="task-list"></ul>
+
+  <!-- Report button + section -->
+  <button onclick="generateReport()">Generate Daily Report</button>
+  <div id="report"></div>
 
 <script>
   // Add a task to the list
@@ -87,7 +97,23 @@
     pet.style.transform = "scale(1.4)";
     setTimeout(() => pet.style.transform = "scale(1)", 200);
   }
- 
+
+  // Generate report of completed tasks
+  function generateReport() {
+    const tasks = document.querySelectorAll("#task-list li.done");
+    const reportDiv = document.getElementById("report");
+
+    if (tasks.length === 0) {
+      reportDiv.innerHTML = "<p>No tasks completed today.</p>";
+    } else {
+      let listHTML = "<h3>Completed Tasks:</h3><ul>";
+      tasks.forEach(task => {
+        listHTML += `<li>${task.textContent}</li>`;
+      });
+      listHTML += "</ul>";
+      reportDiv.innerHTML = listHTML;
+    }
+  }
 </script>
 
 </body>
