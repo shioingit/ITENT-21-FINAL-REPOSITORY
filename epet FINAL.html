@@ -315,7 +315,6 @@
   function renderCalendar() {
     const year  = calDate.getFullYear();
     const month = calDate.getMonth();
-    el.onclick = () => showDayReport(dateStr);
 
     document.getElementById("cal-title").textContent =
       calDate.toLocaleString("default", { month: "long", year: "numeric" });
@@ -357,27 +356,6 @@
     calDate.setMonth(calDate.getMonth() + dir);
     renderCalendar();
   }
-
-  // Show report for a clicked day
-function showDayReport(dateStr) {
-  const dayTasks = tasks.filter(t => t.date === dateStr);
-  const reportDiv = document.getElementById("report");
-
-  if (dayTasks.length === 0) {
-    reportDiv.innerHTML = `<h3>Tasks for ${dateStr}</h3><p>No tasks.</p>`;
-  } else {
-    let html = `<h3>Tasks for ${dateStr}</h3><ul>`;
-    dayTasks.forEach(t => {
-      html += `<li>${t.name} ${t.done ? "✅" : "❌"}</li>`;
-    });
-    html += "</ul>";
-    reportDiv.innerHTML = html;
-  }
-
-  // Switch to Report tab automatically
-  showTab("report-tab", document.querySelector('.tab[onclick*="report-tab"]'));
-}
-
 
   // ── Helpers ────────────────────────────────────
   function formatDate(str) {
