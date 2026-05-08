@@ -80,8 +80,19 @@
     const input = document.getElementById("task-input");
     if (!input.value.trim()) return;
 
+   // Check for duplicates
+    const existingTasks = document.querySelectorAll("#task-list li");
+    for (let task of existingTasks) {
+      if (task.textContent.toLowerCase() === newTask.toLowerCase()) {
+        alert("This task already exists!");
+        input.value = "";
+        return; // stop here, don’t add duplicate
+      }
+    }
+
+    // If not duplicate, add task
     const li = document.createElement("li");
-    li.textContent = input.value.trim();
+    li.textContent = newTask;
     li.onclick = () => {
       li.classList.toggle("done");
       bounce(); // pet reacts when a task is completed
