@@ -87,6 +87,17 @@
     pet.style.transform = "scale(1.4)";
     setTimeout(() => pet.style.transform = "scale(1)", 200);
   }
+  function generateReport() {
+      const reportDiv = document.getElementById('report');
+      const completedTasks = tasks.filter(task => task.completed);
+      if (completedTasks.length === 0) {
+        reportDiv.textContent = "No tasks completed today.";
+      } else {
+        reportDiv.innerHTML = "<h3>Completed Tasks:</h3><ul>" +
+          completedTasks.map(task => `<li>${task.text}</li>`).join('') +
+          "</ul>";
+      }
+    }
 </script>
 
 </body>
